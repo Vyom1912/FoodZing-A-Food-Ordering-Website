@@ -1,0 +1,75 @@
+.WhyFoodZing {
+  margin: auto;
+}
+.WhyFoodZing-title {
+  font-weight: 500;
+  text-align: center;
+  margin: 2rem 0;
+}
+span {
+  color: #fe800b;
+}
+.WhyFoodZing-del {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+.WhyFoodZing-Title {
+  margin: auto;
+}
+.WhyFoodZing-del1 {
+  width: 230px;
+  height: 214px;
+  margin: 0 2rem;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 40px 4px #bebebe;
+  text-align: center;
+}
+
+.WhyFoodZing-del1:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 0 10px 1px #fe800b;
+}
+.WhyFoodZing-del2 {
+  width: 230px;
+  height: 214px;
+  margin: 0 2rem;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 40px 4px #bebebe;
+  text-align: center;
+}
+.WhyFoodZing-del2:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 0 10px 1px #fe800b;
+}
+.WhyFoodZing-del3 {
+  width: 230px;
+  height: 214px;
+  margin: 0 2rem;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 40px 4px #bebebe;
+  text-align: center;
+}
+.WhyFoodZing-del3:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 0 10px 1px #fe800b;
+}
+@media (max-width: 750px) {
+  .WhyFoodZing-del {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 16px;
+  }
+}

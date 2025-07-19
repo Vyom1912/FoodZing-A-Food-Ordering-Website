@@ -1,0 +1,50 @@
+.about-us {
+  display: flex;
+  max-height: 100vh;
+  margin-top: 80px;
+}
+.title {
+  font-size: 2rem;
+  color: #fe800b;
+}
+.about-us-title {
+  font-size: 63px;
+}
+.about-us-desc {
+  font-size: 22px;
+  color: #636363;
+}
+.about-h2 {
+  font-size: 2.8rem;
+  color: #fe800b;
+}
+.extra {
+  font-size: 24px;
+}
+@media (max-width: 750px) {
+  .about-us {
+    flex-direction: column;
+  }
+  .title {
+    font-size: 1rem;
+    color: #fe800b;
+    margin: auto;
+  }
+  .about-us-title {
+    font-size: 40px;
+  }
+  .about-us-desc {
+    font-size: 20px;
+    color: #636363;
+  }
+  .about-left-img {
+    width: 100%;
+  }
+  .about-h2 {
+    font-size: 2rem;
+    color: #fe800b;
+  }
+  .extra {
+    font-size: 16px;
+  }
+}
