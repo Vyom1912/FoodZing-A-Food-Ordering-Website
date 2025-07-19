@@ -11,6 +11,7 @@ span {
 }
 .WhyFoodZing-del {
   display: flex;
+  gap: 15px;
   justify-content: center;
   align-items: center;
   font-size: 16px;
