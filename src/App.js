@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
@@ -11,31 +12,45 @@ import OrderPlaced from "./pages/OrderPlaced/OrderPlaced";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [user, setUser] = useState(null);
   const [username, setUserName] = useState("");
+  const { pathname, state } = useLocation();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserName(user.displayName);
-      } else {
-        setUserName("");
-      }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setUserName(currentUser?.displayName || "");
     });
+    return unsubscribe;
   }, []);
+
+  // start each page at the top, unless we came here to scroll to a section
+  useEffect(() => {
+    if (!state?.scrollTo) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, state]);
 
   return (
     <>
-      {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+      {showLogin && (
+        <LoginPopup setShowLogin={setShowLogin} setUserName={setUserName} />
+      )}
       <div className='app'>
-        <Navbar setShowLogin={setShowLogin} name={username} />
+        <Navbar
+          setShowLogin={setShowLogin}
+          isAuthenticated={Boolean(user)}
+          name={username || user?.email || ""}
+        />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/order' element={<PlaceOrder />} />
           <Route path='/orderPlaced' element={<OrderPlaced />} />
+          <Route path='*' element={<Home />} />
         </Routes>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };

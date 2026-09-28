@@ -3,24 +3,38 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Outfit;
+  font-family: Outfit, sans-serif;
+}
+
+html {
   scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
+  overflow-x: hidden;
 }
+
+img {
+  max-width: 100%;
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
+
 .app {
-  width: 80%;
+  width: min(90%, 1400px);
   margin: auto;
 }
-/* .app .navbar{
-  width: 100%;
-} */
+
+/* keep section headings visible below the sticky navbar when scrolled to */
+section[id],
+div[id] {
+  scroll-margin-top: 100px;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;

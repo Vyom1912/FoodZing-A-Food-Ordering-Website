@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./OrderPlaced.css";
 
 const PlaceOrdered = () => {
@@ -18,6 +19,9 @@ const PlaceOrdered = () => {
         <p>
           You ordered from: <span>FoodZing</span>
         </p>
+        <Link to='/' className='back-home'>
+          Back to Home
+        </Link>
       </div>
     </div>
   );

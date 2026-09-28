@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import "./ContactUs.css";
+import { app } from "../Firebase/firebaseConfig";
+
+const initialUserData = {
+  Name: "",
+  Email: "",
+  Subject: "",
+  Message: "",
+};
+
+const buttonText = {
+  idle: "Send Message",
+  sending: "Sending...",
+  sent: "Message Sent",
+  error: "Could not send, try again",
+};
 
 const ContactUs = () => {
-  const initialUserData = {
-    Name: "",
-    Email: "",
-    Subject: "",
-    Message: "",
-  };
-
   const [userData, setUserData] = useState(initialUserData);
-  const [buttonClicked, setButtonClicked] = useState(false);
+  const [status, setStatus] = useState("idle");
 
   const data = (e) => {
     const { name, value } = e.target;
@@ -19,52 +27,52 @@ const ContactUs = () => {
 
   const send = async (e) => {
     e.preventDefault();
-    const { Name, Email, Subject, Message } = userData;
-    const option = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ Name, Email, Subject, Message }),
-    };
+    setStatus("sending");
+    try {
+      const res = await fetch(`${app.options.databaseURL}/Messages.json`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
-    const res = await fetch(
-      "https://foodzing-fb25d-default-rtdb.firebaseio.com/Messages.json",
-      option
-    );
-
-    if (res.ok) {
-      setButtonClicked(true);
+      setStatus("sent");
       setUserData(initialUserData);
-
-      setTimeout(() => {
-        setButtonClicked(false);
-      }, 3000);
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
     }
+    setTimeout(() => setStatus("idle"), 3000);
   };
 
   return (
-    <div className='container'>
+    <div className='contact-container'>
       <hr />
       <div className='contact_box' id='contactus'>
         <h1 className='contact_heading'>Contact Us</h1>
-        <form>
-          <input
-            type='text'
-            name='Name'
-            value={userData.Name}
-            placeholder='Enter Your Full Name'
-            autoComplete='off'
-            onChange={data}
-          />
-          <input
-            type='email'
-            name='Email'
-            value={userData.Email}
-            autoComplete='off'
-            onChange={data}
-            placeholder='Enter Your Email Address'
-          />
+        <form onSubmit={send}>
+          <div className='contact-row'>
+            <input
+              type='text'
+              name='Name'
+              value={userData.Name}
+              placeholder='Enter Your Full Name'
+              autoComplete='off'
+              onChange={data}
+              required
+            />
+            <input
+              type='email'
+              name='Email'
+              value={userData.Email}
+              autoComplete='off'
+              onChange={data}
+              placeholder='Enter Your Email Address'
+              required
+            />
+          </div>
           <input
             type='text'
             name='Subject'
@@ -79,10 +87,13 @@ const ContactUs = () => {
             value={userData.Message}
             onChange={data}
             autoComplete='off'
-            cols='30'
-            rows='10'></textarea>
-          <button className={buttonClicked ? "sent" : ""} onClick={send}>
-            {buttonClicked ? "Message Sent" : "Send Message"}
+            rows='8'
+            required></textarea>
+          <button
+            type='submit'
+            className={status}
+            disabled={status === "sending"}>
+            {buttonText[status]}
           </button>
         </form>
       </div>

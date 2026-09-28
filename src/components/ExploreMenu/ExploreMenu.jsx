@@ -3,14 +3,14 @@ import { menu_list } from "../../assets/assets";
 
 const ExploreMenu = ({ category, setCategory }) => {
   return (
-    <div className="explore-menu" id="explore-menu">
+    <div className='explore-menu' id='explore-menu'>
       <h1>Discover our menu</h1>
-      <p className="explore-menu-text">
-        Embark on a culinary journey at FoodZing . Explore our menu for
-        tantalizing flavors and exquisite dishes crafted by our talented chefs.{" "}
+      <p className='explore-menu-text'>
+        Embark on a culinary journey at FoodZing. Explore our menu for
+        tantalizing flavors and exquisite dishes crafted by our talented chefs.
       </p>
-      <div className="explore-menu-list">
-        {menu_list.map((item, index) => {
+      <div className='explore-menu-list'>
+        {menu_list.map((item) => {
           return (
             <div
               onClick={() =>
@@ -18,13 +18,12 @@ const ExploreMenu = ({ category, setCategory }) => {
                   prev === item.menu_name ? "All" : item.menu_name
                 )
               }
-              key={index}
-              className="explore-menu-list-item"
-            >
+              key={item.menu_name}
+              className='explore-menu-list-item'>
               <img
                 className={category === item.menu_name ? "active" : ""}
                 src={item.menu_image}
-                alt=""
+                alt={item.menu_name}
               />
               <p>{item.menu_name}</p>
             </div>

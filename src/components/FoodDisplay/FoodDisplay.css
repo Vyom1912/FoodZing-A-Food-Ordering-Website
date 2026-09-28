@@ -7,13 +7,19 @@
 }
 .food-display-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
   margin-top: 30px;
   gap: 30px;
   row-gap: 50px;
 }
 @media (max-width: 1000px) {
   .food-display-list {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  }
+}
+@media (max-width: 750px) {
+  .food-display-list {
+    gap: 20px;
+    row-gap: 30px;
   }
 }
